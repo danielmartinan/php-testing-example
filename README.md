@@ -76,6 +76,7 @@ Clase simple con operaciones matemáticas:
 - `factorial(int $n): int` - Calcula factorial
 
 **Tests**: `tests/Unit/CalculatorTest.php`
+
 - Tests básicos de operaciones
 - Tests de excepciones
 - Tests con data providers
@@ -85,9 +86,11 @@ Clase simple con operaciones matemáticas:
 Modelo de usuario con repositorio para persistencia:
 
 **User.php**: Entidad simple
+
 - `id`, `email`, `password`, `createdAt`
 
 **UserRepository.php**: Acceso a datos
+
 - `create(email, password)` - Crear usuario
 - `findById(id)` - Buscar por ID
 - `findByEmail(email)` - Buscar por email
@@ -98,6 +101,7 @@ Modelo de usuario con repositorio para persistencia:
 - `validateCredentials(email, password)` - Validar login
 
 **Tests**: `tests/Integration/UserRepositoryTest.php`
+
 - Tests con SQLite en memoria (sin servidor)
 - Validación de datos
 - Operaciones CRUD
@@ -113,7 +117,8 @@ El workflow `.github/workflows/tests.yml` ejecuta 4 jobs:
 4. **integration-tests**: Ejecuta tests de integración
 
 Dependencias:
-```
+
+```plaintext
 code-style ─┐
             ├─→ unit-tests ─→ integration-tests
 phpstan ────┘
