@@ -1,0 +1,7 @@
+.git/
+/vendor/
+composer.lock
+coverage.xml
+.idea/
+.vscode/
+*.log
