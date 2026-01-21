@@ -28,10 +28,15 @@ class UserRepository
             throw new \InvalidArgumentException('Password must be at least 6 characters');
         }
 
-        $stmt = $this->pdo->prepare('INSERT INTO users (email, password, created_at) VALUES (?, ?, NOW())');
+        // Use PHP-generated timestamp for cross-DB compatibility (SQLite doesn't support NOW())
+        $hash = password_hash($password, PASSWORD_BCRYPT);
+        $now  = (new \DateTime())->format('Y-m-d H:i:s');
+
+        $stmt = $this->pdo->prepare('INSERT INTO users (email, password, created_at) VALUES (?, ?, ?)');
         $stmt->execute([
             $email,
-            password_hash($password, PASSWORD_BCRYPT),
+            $hash,
+            $now,
         ]);
 
         $userId = (int) $this->pdo->lastInsertId();
@@ -39,8 +44,8 @@ class UserRepository
         return new User(
             id: $userId,
             email: $email,
-            password: password_hash($password, PASSWORD_BCRYPT),
-            createdAt: new \DateTime(),
+            password: $hash,
+            createdAt: new \DateTime($now),
         );
     }
 
