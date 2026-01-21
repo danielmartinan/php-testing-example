@@ -95,6 +95,9 @@ class CalculatorTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
+    /**
+     * @return array<string, array<int, int>>
+     */
     public static function additionProvider(): array
     {
         return [

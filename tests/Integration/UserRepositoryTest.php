@@ -136,6 +136,7 @@ class UserRepositoryTest extends TestCase
         $this->repository->update($user);
 
         $updated = $this->repository->findById($user->id);
+        $this->assertNotNull($updated);
         $this->assertEquals('newemail@example.com', $updated->email);
     }
 

@@ -84,6 +84,9 @@ class UserRepository
     public function findAll(): array
     {
         $stmt = $this->pdo->query('SELECT * FROM users ORDER BY created_at DESC');
+        if ($stmt === false) {
+            return [];
+        }
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return array_map(fn ($row) => $this->hydrateUser($row), $rows);
@@ -114,7 +117,13 @@ class UserRepository
     public function count(): int
     {
         $stmt = $this->pdo->query('SELECT COUNT(*) as count FROM users');
+        if ($stmt === false) {
+            return 0;
+        }
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result === false) {
+            return 0;
+        }
 
         return (int) $result['count'];
     }
@@ -135,6 +144,7 @@ class UserRepository
 
     /**
      * Convierte array a objeto User
+     * @param array<string, mixed> $row
      */
     private function hydrateUser(array $row): User
     {
