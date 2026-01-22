@@ -124,6 +124,24 @@ code-style ─┐
 phpstan ────┘
 ```
 
+## Code Style
+
+El formateo y las normas de estilo se validan con **PHP CS Fixer**:
+
+- Herramienta: [friendsofphp/php-cs-fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) instalada como `require-dev` en [composer.json](composer.json).
+- Configuración: reglas PSR-12 más ajustes específicos en [.php-cs-fixer.php](.php-cs-fixer.php) (array corto, imports ordenados alfabéticamente, eliminación de imports sin usar, comillas simples, trailing commas en multilínea). El `Finder` limita el análisis a `src/` y `tests/`.
+- Ejecución local: `composer run-script cs-check` para comprobar en modo dry-run y `composer run-script cs-fix` para autocorregir.
+- CI: el job **code-style** en [.github/workflows/tests.yml](.github/workflows/tests.yml) ejecuta `cs-check` y bloquea el pipeline si hay violaciones.
+
+## Análisis estático PHPStan
+
+El análisis de tipos se realiza con **PHPStan** a nivel 8:
+
+- Herramienta: [phpstan/phpstan](https://phpstan.org/) definida en `require-dev` en [composer.json](composer.json).
+- Configuración: [phpstan.neon](phpstan.neon) establece `level: 8`, analiza `src/` y `tests/`, y excluye `vendor/` para evitar falsos positivos en dependencias.
+- Ejecución local: `composer run-script phpstan` o directamente `phpstan analyse --level=8` (coherente con el script).
+- CI: el job **phpstan** en [.github/workflows/tests.yml](.github/workflows/tests.yml) ejecuta el análisis y debe pasar antes de los tests.
+
 ## Testing local
 
 ### Ejecutar tests
@@ -180,6 +198,7 @@ Code Coverage Report:
 ### Mejorar análisis estático
 
 Cambiar nivel de PHPStan en `phpstan.neon`:
+
 ```neon
 parameters:
     level: 9  # Máximo nivel
