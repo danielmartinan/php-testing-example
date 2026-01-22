@@ -214,8 +214,7 @@ Copia el badge en tu README:
 [![codecov](https://codecov.io/gh/usuario/repo/branch/main/graph/badge.svg)](https://codecov.io/gh/usuario/repo)
 ```
 
-[![codecov](https://codecov.io/gh/usuario/repo/branch/main/graph/badge.svg)](https://codecov.io/gh/danielmartinan/php-testing-example)
-
+[![codecov](https://codecov.io/gh/danielmartinan/php-testing-example/master/main/graph/badge.svg)](https://codecov.io/gh/danielmartinan/php-testing-example)
 
 ## Recursos
 
