@@ -209,9 +209,13 @@ parameters:
 Si subes a GitHub, el workflow automáticamente sube cobertura a Codecov.
 
 Copia el badge en tu README:
+
 ```markdown
 [![codecov](https://codecov.io/gh/usuario/repo/branch/main/graph/badge.svg)](https://codecov.io/gh/usuario/repo)
 ```
+
+[![codecov](https://codecov.io/gh/usuario/repo/branch/main/graph/badge.svg)](https://codecov.io/gh/danielmartinan/php-testing-example)
+
 
 ## Recursos
 
