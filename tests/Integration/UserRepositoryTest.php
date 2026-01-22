@@ -90,6 +90,27 @@ class UserRepositoryTest extends TestCase
     /**
      * @test
      */
+    public function it_returns_empty_array_when_no_users_exist(): void
+    {
+        $users = $this->repository->findAll();
+
+        $this->assertIsArray($users);
+        $this->assertCount(0, $users);
+    }
+
+    /**
+     * @test
+     */
+    public function it_returns_zero_count_when_no_users_exist(): void
+    {
+        $count = $this->repository->count();
+
+        $this->assertSame(0, $count);
+    }
+
+    /**
+     * @test
+     */
     public function it_finds_user_by_email(): void
     {
         $this->repository->create('john@example.com', 'password123');
@@ -150,6 +171,17 @@ class UserRepositoryTest extends TestCase
 
         $this->assertTrue($deleted);
         $this->assertNull($this->repository->findById($user->id));
+    }
+
+    /**
+     * @test
+     */
+    public function it_handles_deleting_nonexistent_user_gracefully(): void
+    {
+        $deleted = $this->repository->delete(999);
+
+        $this->assertTrue($deleted);
+        $this->assertSame(0, $this->repository->count());
     }
 
     /**
